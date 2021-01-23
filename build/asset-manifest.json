@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.js": "/static/js/main.8b3f2534.chunk.js",
+    "main.js.map": "/static/js/main.8b3f2534.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.af7feac4.js",
+    "runtime-main.js.map": "/static/js/runtime-main.af7feac4.js.map",
+    "static/js/2.3be8087f.chunk.js": "/static/js/2.3be8087f.chunk.js",
+    "static/js/2.3be8087f.chunk.js.map": "/static/js/2.3be8087f.chunk.js.map",
+    "static/js/3.b17563da.chunk.js": "/static/js/3.b17563da.chunk.js",
+    "static/js/3.b17563da.chunk.js.map": "/static/js/3.b17563da.chunk.js.map",
+    "index.html": "/index.html",
+    "static/js/2.3be8087f.chunk.js.LICENSE.txt": "/static/js/2.3be8087f.chunk.js.LICENSE.txt",
+    "static/media/admission.b2177974.jpg": "/static/media/admission.b2177974.jpg",
+    "static/media/college.0c81e9df.jpg": "/static/media/college.0c81e9df.jpg",
+    "static/media/cost.b14905d7.jpg": "/static/media/cost.b14905d7.jpg",
+    "static/media/future.443e2185.jpg": "/static/media/future.443e2185.jpg",
+    "static/media/graduation.0c2964d6.jpg": "/static/media/graduation.0c2964d6.jpg",
+    "static/media/size.0b6778ff.jpg": "/static/media/size.0b6778ff.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.af7feac4.js",
+    "static/js/2.3be8087f.chunk.js",
+    "static/js/main.8b3f2534.chunk.js"
+  ]
+}
