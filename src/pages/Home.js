@@ -21,7 +21,7 @@ class Home extends Component{
     handleSubmit (event) {
         event.preventDefault();
         if (this.state.searchValue)
-            this.setState({redirect: '/CollegeInfo'})
+            this.setState({redirect: '/searchIndex'})
         else
             alert("Please Input A College Name");
     }
@@ -33,7 +33,6 @@ class Home extends Component{
                 <div>
                     <Redirect push to={{
                         pathname: this.state.redirect,
-                        search: this.state.searchValue,
                         state: {searchValue: this.state.searchValue}
                     }}/>
                 </div>
@@ -51,10 +50,6 @@ class Home extends Component{
                         </div>
                         <div className="form-group">
                             <input type="submit" className="btn btn-success btn-block btn-lg" value="Go"></input>
-                        </div>
-                        <div className="alert alert-dismissible alert-warning fade show">
-                            Please don't include any punctuation mark and Please type in the full name of the college
-                            <button type="button" className="close" data-dismiss="alert">&times;</button>
                         </div>
                     </form>
                     <div className="jumbotron text-center fixed-bottom" style={{marginBottom:0}}>

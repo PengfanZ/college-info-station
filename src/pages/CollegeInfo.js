@@ -12,13 +12,13 @@ class CollegeInfo extends Component{
     constructor (props){
         super (props);
         this.state = {
-            CollegeName:  this.props.location.state.searchValue,
+            CollegeName: '',
             AdmissionRate: '',
             City: '',
             Ownership: null,
             HomePage: '',
             //e.g. ?New%20York%20University
-            EncodedName: encodeURIComponent(this.props.location.state.searchValue),
+            //EncodedName: encodeURIComponent(this.props.location.state.searchValue),
             AverageSat: null,
             Enrollment: null,
             InStateTuition: null,
@@ -37,7 +37,7 @@ class CollegeInfo extends Component{
             PhysicalScience: 0,
             SocialScience: 0,
             //school id (unique)
-            id: null,
+            id: this.props.location.state.id,
             exist: true,
             //not for college info
             error: null,
@@ -46,31 +46,19 @@ class CollegeInfo extends Component{
     }
 
     componentDidMount() {
-        let name='';
+        //let name='';
         const urlFront="https://api.data.gov/ed/collegescorecard/v1/schools.json?api_key=jGYsoKv4bJJ0H8EgaPYnpshgESDIaK0V4e9UfXs1";
         //Got School id
-        fetch(urlFront+"&school.name="+this.state.EncodedName+"&fields=id,school.name")
-            .then(res => res.json())
-            .then(result => {
-                if (result.metadata.total === 0){
-                    alert("The school does not exist in U.S.");
-                    this.setState({exist: false});
-                }
-                else{
-                    name = result.results[0]["school.name"];
-                    if (name===this.state.CollegeName || name===(this.state.CollegeName+"-Main Campus")){
-                        this.setState ({id: result.results[0].id});
-                        //this.setState({isLoaded: true});
-                        console.log(name+" "+this.state.id);
-                        fetch(urlFront+"&id="+this.state.id+"&fields=school.city,school.school_url,"+
-                        "school.ownership,2018.admissions.admission_rate.overall,2018.admissions.sat_scores.average.overall,"+
-                        "2018.student.size,2018.cost.tuition.out_of_state,2018.completion.completion_rate_4yr_150nt,"+
-                        "2007.earnings.10_yrs_after_entry.median,2018.student.grad_students,2018.cost.tuition.in_state,"+
-                        "2018.academics.program_percentage.computer,2018.academics.program_percentage.education,"+
-                        "2018.academics.program_percentage.engineering,2018.academics.program_percentage.biological,"+
-                        "2018.academics.program_percentage.mathematics,2018.academics.program_percentage.social_science,"+
-                        "2018.academics.program_percentage.business_marketing,2018.academics.program_percentage.history,"+
-                        "2018.academics.program_percentage.physical_science")
+
+                        fetch(urlFront+"&id="+this.state.id+"&fields=school.name,school.city,school.school_url,"+
+                        "school.ownership,latest.admissions.admission_rate.overall,latest.admissions.sat_scores.average.overall,"+
+                        "latest.student.size,latest.cost.tuition.out_of_state,latest.completion.completion_rate_4yr_150nt,"+
+                        "2007.earnings.10_yrs_after_entry.median,latest.student.grad_students,latest.cost.tuition.in_state,"+
+                        "latest.academics.program_percentage.computer,latest.academics.program_percentage.education,"+
+                        "latest.academics.program_percentage.engineering,latest.academics.program_percentage.biological,"+
+                        "latest.academics.program_percentage.mathematics,latest.academics.program_percentage.social_science,"+
+                        "latest.academics.program_percentage.business_marketing,latest.academics.program_percentage.history,"+
+                        "latest.academics.program_percentage.physical_science")
                         .then(res => res.json())
                         .then(result => {
                             console.log(result);
@@ -83,38 +71,30 @@ class CollegeInfo extends Component{
                             else
                                 ownership="Private For-profit";
                             this.setState ({
+                                CollegeName: result.results[0]["school.name"],
                                 isLoaded: true,
-                                AdmissionRate: result.results[0]["2018.admissions.admission_rate.overall"],
+                                AdmissionRate: result.results[0]["latest.admissions.admission_rate.overall"],
                                 City: result.results[0]["school.city"],
                                 Ownership: ownership,
                                 HomePage: result.results[0]["school.school_url"],
-                                OutStateTuition: result.results[0]["2018.cost.tuition.out_of_state"],
-                                InStateTuition: result.results[0]["2018.cost.tuition.in_state"],
-                                "4 Year Graduation Rate": result.results[0]["2018.completion.completion_rate_4yr_150nt"],
+                                OutStateTuition: result.results[0]["latest.cost.tuition.out_of_state"],
+                                InStateTuition: result.results[0]["latest.cost.tuition.in_state"],
+                                "4 Year Graduation Rate": result.results[0]["latest.completion.completion_rate_4yr_150nt"],
                                 MedianEarning: result.results[0]["2007.earnings.10_yrs_after_entry.median"],
-                                NumOfGradStudent: result.results[0]["2018.student.grad_students"],
-                                Enrollment: result.results[0]["2018.student.size"], 
-                                AverageSat: result.results[0]["2018.admissions.sat_scores.average.overall"],
-                                Biology: result.results[0]["2018.academics.program_percentage.biological"],
-                                Business: result.results[0]["2018.academics.program_percentage.business_marketing"],
-                                Computer: result.results[0]["2018.academics.program_percentage.computer"],
-                                Education: result.results[0]["2018.academics.program_percentage.education"],
-                                Engineering: result.results[0]["2018.academics.program_percentage.engineering"],
-                                History: result.results[0]["2018.academics.program_percentage.history"],
-                                Mathematics: result.results[0]["2018.academics.program_percentage.mathematics"],
-                                PhysicalScience: result.results[0]["2018.academics.program_percentage.physical_science"],
-                                SocialScience: result.results[0]["2018.academics.program_percentage.social_science"]
+                                NumOfGradStudent: result.results[0]["latest.student.grad_students"],
+                                Enrollment: result.results[0]["latest.student.size"], 
+                                AverageSat: result.results[0]["latest.admissions.sat_scores.average.overall"],
+                                Biology: result.results[0]["latest.academics.program_percentage.biological"],
+                                Business: result.results[0]["latest.academics.program_percentage.business_marketing"],
+                                Computer: result.results[0]["latest.academics.program_percentage.computer"],
+                                Education: result.results[0]["latest.academics.program_percentage.education"],
+                                Engineering: result.results[0]["latest.academics.program_percentage.engineering"],
+                                History: result.results[0]["latest.academics.program_percentage.history"],
+                                Mathematics: result.results[0]["latest.academics.program_percentage.mathematics"],
+                                PhysicalScience: result.results[0]["latest.academics.program_percentage.physical_science"],
+                                SocialScience: result.results[0]["latest.academics.program_percentage.social_science"]
                             });
                         });
-                    }
-                    else{
-                        alert("Please input a correct or full US College Name");
-                        this.setState({exist: false});    
-                    }
-                }
-            }, (error) => {
-                this.setState({error: error, isLoaded: true});
-            })
     }
 
 

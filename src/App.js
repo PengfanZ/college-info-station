@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Home from './pages/Home';
 import CollegeInfo from './pages/CollegeInfo';
+import searchIndex from './pages/searchIndex';
+//import Trending from './pages/trending';
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,6 +11,7 @@ import {
   } from "react-router-dom";
 
 class App extends Component {    
+
   render(){
     return (
       <div className="h-100">
@@ -20,7 +23,7 @@ class App extends Component {
                 <div id="navbarNav">
                   <ul className="navbar-nav">
                       <li className="nav-item">
-                          <Link className="nav-link" to="/">Home</Link>
+                          <Link className="nav-link" to='/'>Home</Link>
                       </li>
                   </ul>
                 </div>
@@ -29,10 +32,9 @@ class App extends Component {
 
           
           <Switch>
-            <Route exact path='/'>
-              <Home />
-            </Route>
-            <Route exact path='/CollegeInfo' render={(props) => <CollegeInfo {...props} />} />
+            <Route exact path='/' component={Home} />
+            <Route path='/CollegeInfo' render={(props) => <CollegeInfo {...props} />} />
+            <Route path='/searchIndex' component={searchIndex} />
           </Switch>
         </Router>
     </div>
